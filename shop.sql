@@ -46,19 +46,20 @@ GROUP BY WEEK;
 -- and then in ascending order)
 
 SELECT 
-	WEEK, COUNT(*)
+	WEEK, COUNT(WEEK) AS 'NUM_Sales'
 FROM
 	SALES1
 GROUP BY WEEK
-ORDER BY COUNT(*) desc;
+ORDER BY WEEK desc;
 
 -- Find out how many sales were recorded each week on different days of the week
 
 SELECT 
-	COUNT(*), DAY
+	WEEK, DAY, COUNT(week) AS 'NUM_sales'
 FROM
 	SALES1
-GROUP BY DAY;
+GROUP BY DAY
+ORDER BY WEEK , DAY;
 
 
 
@@ -77,22 +78,22 @@ SET SQL_SAFE_UPDATES = 1;
 
 -- Find out how many sales did Annete do
 
-SELECT
-SalesPerson, COUNT(*)
+SELECT 
+    *
 FROM
-SALES1
+    sales1
 WHERE
-SalesPerson = 'Anette';
+    SalesPerson = 'Anette';
 
 
 -- • Find the total sales amount by each person by day
 
-SELECT
-DAY, SalesPerson, COUNT(*)
+SELECT 
+    SalesPerson, Day, SUM(SalesAmount) AS 'salesAmount'
 FROM
-SALES1
-GROUP by SalesPerson;
-
+    SALES1
+GROUP BY SalesPerson , Day
+ORDER BY SalesPerson , Day;
 
 -- How much (sum) each person sold for the given period
 
